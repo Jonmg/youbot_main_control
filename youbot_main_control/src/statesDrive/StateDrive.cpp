@@ -31,12 +31,29 @@ void StateDrive::statusCallback(const actionlib_msgs::GoalStatusArray& status)
 	_status = status;
 }
 
+void StateDrive::interpretatePosition (std::string s)
+{
+
+	if (s == "S1")
+	{
+		_goal.pose.position.x = 0.0;
+		_goal.pose.position.y = 0.0;
+	}
+	else if (s == "S2")
+	{
+		_goal.pose.position.x = 0.0;
+		_goal.pose.position.y = 0.0;
+	}
+	else
+	{
+		ROS_ERROR_STREAM("SM(next): Fatal error unknown command ");
+	}
+}
+
 void StateDrive::onEntry()
 {
-	//that should be done before:
-
-	_goal.pose.position.x = 0.0;
-	_goal.pose.position.y = 0.0;
+	_model->getTask(_task);
+	interpretatePosition(_task.sequences.at(0).source_location);
 	ros::Rate rate(100);
 	while(!_goalPub.getNumSubscribers())
 	{

@@ -48,21 +48,12 @@ bool YoubotModel::getCurrentPose(geometry_msgs::PoseStamped* const pose, const d
   }
 }
 
-
-void YoubotModel::setPath(const nav_msgs::Path& path)
+void YoubotModel::getTask(youbot_msgs::Task& task)
 {
-  _path = path;
+    task = _task;
 }
 
-nav_msgs::Path* YoubotModel::getPath()
+void YoubotModel::setTask(youbot_msgs::Task task)
 {
-	return (_path.poses.size() != 0) ? &_path : NULL;
-}
-
-bool YoubotModel::clearPath()
-{
-  if(!_path.poses.size())
-      return false;
-  _path.poses.clear();
-  return true;
+  _task = task;
 }

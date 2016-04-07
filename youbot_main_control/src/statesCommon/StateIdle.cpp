@@ -11,9 +11,13 @@
 
 StateIdle::StateIdle(YoubotModel* const model):
 StateBaseYoubot(model),
-_newGoal(false)
+_newGoal(false),
+_firstTime(true)
 {
-	//ToDo: add here the code for popTaskVector
+	std::string taskTopic;
+	_prvNh->param<std::string>("task_topic", taskTopic, "task");
+
+	_taskSub = _nh->subscribe(taskTopic, 1, &StateIdle::taskCallback, this);
 }
 
 StateIdle::~StateIdle()
@@ -21,13 +25,24 @@ StateIdle::~StateIdle()
 
 }
 
+void StateIdle::taskCallback(const youbot_msgs::Task::ConstPtr& task)
+{
+	if (_firstTime)
+	{
+		_firstTime =false;
+		_model->setTask(*task);
+	}
+}
+
 void StateIdle::onActive()
 {
-  ROS_INFO_THROTTLE(2, "SM(Idle)");
+	ROS_INFO_THROTTLE(2, "SM(Idle)");
 
-    //_model->pushTaskVector(popTaskVector.response.taskVector);
-    ROS_INFO_STREAM("SM(idle): New task received -> transition to StateNext..." << std::endl);
-    _agent->registerPersistantState(STATE_NEXT, new StateNext(_model));
-    _agent->transitionToPersistantState(STATE_NEXT);
-    return;
+	if (!_firstTime)
+	{
+	ROS_INFO_STREAM("SM(idle): New task received -> transition to StateNext..." << std::endl);
+	_agent->registerPersistantState(STATE_NEXT, new StateNext(_model)); //just one time, no??
+	_agent->transitionToPersistantState(STATE_NEXT);
+	_firstTime = true;//is it necessary as it is not a persistent state?
+	}
 }

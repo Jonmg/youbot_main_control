@@ -7,7 +7,7 @@
 
 #include "StateMachine.h"
 #include "YoubotModel.h"
-//#include "states/StateInit.h"
+#include "statesCommon/StateInit.h"
 #include "geometry_msgs/PoseStamped.h"
 #include <tf/tf.h>
 
@@ -53,7 +53,7 @@ StateMachine::~StateMachine()
 
 void StateMachine::start()
 {
-	//_agent.transitionToVolatileState(new StateInit(_model, _robotId));
+	_agent.transitionToVolatileState(new StateInit(_model, _robotId));
 	this->run();
 }
 

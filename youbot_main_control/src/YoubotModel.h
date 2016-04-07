@@ -12,6 +12,7 @@
 #include "nav_msgs/Path.h"
 #include <vector>
 #include "obcore/statemachine/AgentModel.h"
+#include "youbot_msgs/Task.h"
 
 class YoubotModel : public obvious::AgentModel
 {
@@ -48,26 +49,20 @@ public:
 	bool getCurrentPose(geometry_msgs::PoseStamped* const pose, const double age);
 
 	/**
-	 * Set path
-	 * @param path
+	 * Get the complete task
 	 */
-	void setPath(const nav_msgs::Path& path);
+	void getTask(youbot_msgs::Task& task);
 
 	/**
-	 * Get path
+	 * Set the complete task
 	 */
-	nav_msgs::Path* getPath();
-
-	/**
-	 * Clear currently assigned path
-	 */
-	bool clearPath();
+	void setTask(youbot_msgs::Task task);
 
 	ros::NodeHandle* const nodeHandle(void)const{return _nh;}
 
 	ros::NodeHandle* const paramNodeHandle(void)const{return _prvNh;}
 
-	private:
+private:
 
 	geometry_msgs::PoseStamped _pose;
 
@@ -75,13 +70,11 @@ public:
 
 	ros::NodeHandle* const _prvNh;
 
-	nav_msgs::Path _path;
-
-	std::string _actualTask; //???
-
 	ros::Time* _lastPoseUpdate;
 
-	double _coveredDistance;
+	std::string _actualTask;
+
+	youbot_msgs::Task _task;
 };
 
 #endif /* YOUBOTMODEL_H_ */

@@ -10,6 +10,7 @@
 
 #include "StateBaseYoubot.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "youbot_msgs/Task.h"
 
 class YoubotModel;
 
@@ -26,7 +27,7 @@ public:
 
 private:
 
-	//TaskVector* _taskVector;
+	youbot_msgs::Task _task;
 };
 
 #endif /* STATENEXT_H_ */

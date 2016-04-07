@@ -10,6 +10,7 @@
 
 #include "StateBaseYoubot.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "youbot_msgs/Task.h"
 
 class YoubotModel;
 
@@ -22,8 +23,12 @@ public:
 	void onActive();
 
 private:
-	ros::ServiceClient _clientPopTaskVector;
+	void taskCallback(const youbot_msgs::Task::ConstPtr& task);
+
+	ros::Subscriber _taskSub;
+
 	bool _newGoal;
+	bool _firstTime;
 	geometry_msgs::PoseStamped _goal;
 };
 

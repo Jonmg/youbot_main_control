@@ -1,0 +1,9 @@
+<launch>
+	
+	<node type="youbot_control_node" pkg="youbot_control" name="youbot_control" output="screen" required="true">   
+
+	  <param name = "mapTopic"                    type = "string"    value = "/map"   />
+      <param name = "base_frame"                  type = "string"    value = "youBot" />
+      
+   </node>
+</launch>
