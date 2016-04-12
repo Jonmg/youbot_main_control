@@ -49,14 +49,34 @@ public:
 	bool getCurrentPose(geometry_msgs::PoseStamped* const pose, const double age);
 
 	/**
-	 * Get the complete task
+	 * Add TaskVecdtor
+	 * @param target target
 	 */
-	void getTask(youbot_msgs::Task& task);
+	void addTask(const youbot_msgs::Task taskVector);
 
 	/**
-	 * Set the complete task
+	 * Get next taskVector. If no target is assigned, NULL is returned.
+	 * @param taskVector next taskVector
+	 * @return success
 	 */
-	void setTask(youbot_msgs::Task task);
+	bool getNextTask(youbot_msgs::Task& taskVector);
+
+	/**
+	 * Delete next taskVector. If no target is assigned, NULL is returned.
+	 * @param taskVector next taskVector
+	 * @return success
+	 */
+	bool deleteNextTask();
+
+	/**
+	 * Get the Single task
+	 */
+	void getSingleTask(youbot_msgs::Task& task);
+
+	/**
+	 * Set the Single task
+	 */
+	void setSingleTask(youbot_msgs::Task task);
 
 	ros::NodeHandle* const nodeHandle(void)const{return _nh;}
 
@@ -75,6 +95,9 @@ private:
 	std::string _actualTask;
 
 	youbot_msgs::Task _task;
+
+	std::vector<youbot_msgs::Task> _taskVector;
+
 };
 
 #endif /* YOUBOTMODEL_H_ */

@@ -1,0 +1,5 @@
+<launch>
+
+<include file="$(find youbot_main_control)/launch/includes/move_base.launch.xml"/>
+
+</launch>

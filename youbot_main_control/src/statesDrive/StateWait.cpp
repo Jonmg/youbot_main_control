@@ -23,19 +23,21 @@ StateWait::~StateWait()
 void StateWait::onEntry()
 {
 	//watingTime = model->getWaitingTime();
-	ros::Duration waitingTime(3000); //just for now. It has to be tested also
+	ros::Duration waitingTime(3); //just for now. It has to be tested also
 	_finalTime = ros::Time::now() + waitingTime;
 }
 
 void StateWait::onActive()
 {
 	ROS_INFO_THROTTLE(2, "SM(StateWait)");
+	ros::Duration timeLeft = _finalTime - ros::Time::now();
 
-	if(ros::Time::now()  >=  _finalTime) //Succeed
+	if(timeLeft  <=  ros::Duration(0)) //Succeed
 	{
 		ROS_INFO_STREAM("SM(drive): Waiting time finished. Go to StateNext");
+		_model->deleteNextTask();
 		_agent->transitionToPersistantState(STATE_NEXT);
 	}
 	else
-		ROS_INFO_THROTTLE(1, "Waiting");
+		ROS_INFO_THROTTLE(1, "Waiting " );
 }

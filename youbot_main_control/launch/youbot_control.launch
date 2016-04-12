@@ -1,9 +1,69 @@
 <launch>
 	
-	<node type="youbot_control_node" pkg="youbot_control" name="youbot_control" output="screen" required="true">   
-
-	  <param name = "mapTopic"                    type = "string"    value = "/map"   />
-      <param name = "base_frame"                  type = "string"    value = "youBot" />
-      
+	<arg name="output"         	default="screen" />     <!-- log | screen -->
+	<arg name="MapFrame"    	default="map" /> 		<!-- map_static | map-->	
+	<arg name="RoobotFrame"    	default="robot0" /> 	<!-- youbot | robot0-->	
+	<arg name="VelTopic"    	default="/robot0/cmd_vel" /> 	<!-- cmd_vel | /robot0/cmd_vel-->	
+	<arg name="LaserTopic"    	default="/robot0/laser_0" /> 	<!-- laser | /robot0/laser_0-->	
+	
+	<node pkg="youbot_main_control" type="youbot_main_control_node" name="youbot_control" output="$(arg output)">   
+		
+		<!-- Parameters StateMachine.cpp-->
+      	<param name = "tf_base_frame"       	type = "string" value = "$(arg MapFrame)"   />
+      	<param name = "tf_robot_frame"      	type = "string" value = "$(arg RoobotFrame)" />
+      	<param name="init_pose_x" 				type="double" 	value="3.0" />
+    	<param name="init_pose_y" 				type="double" 	value="2.0" />
+    	<param name="init_pose_yaw" 			type="double" 	value="1.57" />
+    	<param name="loop_rate_main" 			type="double" 	value="20.0" />
+    	
+    	<!-- Parameters states.cpp. 1-statesCommon 2-statesDrive 3-statesGrasp -->
+      	<param name = "task_topic"      		type = "string" value = "task"   />     	
+      	<param name = "vel_topic"      			type = "string" value = "$(arg VelTopic)" />
+      	<param name = "laser_topic"     		type = "string" value = "$(arg LaserTopic)" />
+      	
+      	<param name = "move_base_status_topic"  type = "string" value = "move_base/status" />
+      	<param name = "move_base_goal_topic"    type = "string" value = "move_base_simple/goal" />
+      	<param name = "topic_create_path"      	type = "string" value = "create_path"   />     	
+      	<param name = "topic_send_path"      	type = "string" value = "send_path" />
+      	<param name = "topic_status_path_control"   type = "string" value = "status" />
+      	<param name = "positions_path"   		type = "string" value = "$(find youbot_main_control)/atwork2015_places.txt" />
+      	
+      	<param name = "set_pose_topic"     		type = "string" value = "setPose" />
+      	<param name = "find_objet_topic"     	type = "string" value = "getObject" />
+      	<param name = "grasp_object_topic"      type = "string" value = "grabObject" /> 	      	
    </node>
+   
+   
+   <include file="$(find youbot_main_control)/launch/includes/move_base.launch.xml"/>
+   
+   
+   <!--
+   	<node pkg="ohm_navigation" type="path_planning_node" name="path_planning_node" output="screen">
+		<param name="path_topic"                type="string" value="path"/>
+		<param name="create_path_topic"         type="string" value="create_path"/>
+		<param name = "map_topic"               type = "string" value="/map"/>
+	</node>
+   
+   <node pkg="ohm_navigation"            type="path_control_node" name="path_control_node" output = "screen">
+        <param name="twist_topic"         type="string" value="$(arg VelTopic)"/> 
+        <param name="status_topic"        type="string" value="/status"/>
+        <param name="send_path_topic"     type="string" value="/send_path"/>
+
+        <param name="tf_base_frame"       type="string"    value="$(arg MapFrame)"/>
+        <param name="tf_child_frame"      type="string"  value="$(arg RoobotFrame)"/>
+        
+        <param name="loop_rate"           type="double" value="25.0"/>
+        <param name="lin_p_gain"          type="double" value="1.0"/>
+        <param name="lin_i_gain"          type="double" value="0.0"/>
+        <param name="lin_d_gain"          type="double" value="0.0"/>
+        <param name="lin_vel_thresh"      type="double" value="0.2"/>
+        <param name="use_linear_ramp"     type="bool"   value="false"/>
+        <param name="ang_p_gain"          type="double" value="1.0"/>
+        <param name="ang_i_gain"          type="double" value="0.0"/>
+        <param name="ang_d_gain"          type="double" value="0.0"/>
+        <param name="ang_vel_thresh"      type="double" value="0.4"/>
+        <param name="use_angular_ramp"    type="bool" value="false"/>
+        <param name="drive_straight"      type="bool" value="true"/>   
+  </node> -->
+
 </launch>

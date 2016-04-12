@@ -86,7 +86,7 @@ bool StateMachine::updatePose()
 	}
 	catch(tf::TransformException& e)
 	{
-		ROS_ERROR_STREAM("SM(pose_callback): Error calling tf " << e.what() << std::endl);
+		ROS_ERROR_STREAM("SM(pose_callback): Error calling tf " << e.what());
 		return false;
 	}
 	return true; //just to avoid a error in eclipse

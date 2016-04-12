@@ -6,7 +6,8 @@
  */
 
 #include "StateObjectRecognition.h"
-//#include "StateGrasp.h"
+#include "StateGrasp.h"
+#include "../statesCommon/StateIdle.h"
 #include "youbot_msgs/setPose.h"
 #include "youbot_msgs/getObjectPosition.h"
 #include "../YoubotModel.h"
@@ -16,7 +17,7 @@ StateBaseYoubot(model)
 {
 	std::string setPoseTopic;
 	std::string findObjectTopic;
-	_prvNh->param<std::string>("set_pose_topic", setPoseTopic, "send_path");
+	_prvNh->param<std::string>("set_pose_topic", setPoseTopic, "setPose");
 	_prvNh->param<std::string>("find_objet_topic", findObjectTopic, "status");
 
 	_SetPoseArmclient = _nh->serviceClient<youbot_msgs::setPose>("setPose");
@@ -37,6 +38,9 @@ void StateObjectRecognition::onActive()
 {
 	ROS_INFO_THROTTLE(2, "SM(ObjectRecognition)");
 
+	_agent->transitionToVolatileState(new StateGrasp(_model));
+	return;
+
 	youbot_msgs::setPose pose;
 	pose.request.start.data = true;
 	pose.request.ArmPose.data = "nearsearchpos";
@@ -53,7 +57,7 @@ void StateObjectRecognition::onActive()
 		if(srvVision.response.found.data)
 		{
 			ROS_INFO_STREAM("SM(ObjectRecognition): Object found. Go to StateGrasp");
-		//_agent->transitionToVolatileState(new StateGrasp(_model));
+			_agent->transitionToVolatileState(new StateGrasp(_model));
 		}
 	}
 }

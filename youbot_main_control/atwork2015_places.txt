@@ -1,0 +1,16 @@
+S0 positionX 3.00 PositionY 2.00 PositionZ 1.57 Orientation N end
+S1 positionX 2.50 PositionY 5.50 PositionZ 0 Orientation E end
+S2 PositionX 2.50 PositionY 7.50 PositionZ 3.14 Orientation W end
+S3 PositionX 6.25 PositionY 6.50 PositionZ 1.57 Orientation N end
+S4 PositionX 5.75 PositionY 6.25 PositionZ -1.57 Orientation S end
+S5 PositionX 5.75 PositionY 4.00 PositionZ -1.57 Orientation S end
+S6 PositionX 8.50 PositionY 6.00 PositionZ -1.57 Orientation S end
+S7 PositionX 9.75 PositionY 5.50 PositionZ 0 Orientation E end
+S8 PositionX 8.00 PositionY 6.50 PositionZ 1.57 Orientation N end
+S1 positionX 5.50 PositionY 6.00 PositionZ 3.14 Orientation E end
+
+#Still to be done
+#N -> PositionZ 0
+#E -> PositionZ 1.57
+#S -> PositionZ 3.14
+#W -> PositionZ -1.57 

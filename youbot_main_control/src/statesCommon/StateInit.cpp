@@ -13,11 +13,11 @@ StateInit::StateInit(YoubotModel* const model, const unsigned int robotId):
 StateBaseYoubot(model), //is it required?
 _robotId(robotId)
 {
-	// TODO The initializations should be done: Map, Pose... everyting should be available here
+	// TODO The initializations should be done: Map, Pose (done)... everything should be available here
 }
 
 StateInit::~StateInit() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void StateInit::onActive()

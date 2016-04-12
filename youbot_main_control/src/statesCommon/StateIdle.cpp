@@ -30,7 +30,9 @@ void StateIdle::taskCallback(const youbot_msgs::Task::ConstPtr& task)
 	if (_firstTime)
 	{
 		_firstTime =false;
-		_model->setTask(*task);
+		_model->addTask(*task);
+		ROS_INFO_STREAM("SM(idle): task: " << *task);
+
 	}
 }
 
@@ -40,7 +42,7 @@ void StateIdle::onActive()
 
 	if (!_firstTime)
 	{
-	ROS_INFO_STREAM("SM(idle): New task received -> transition to StateNext..." << std::endl);
+	ROS_INFO_STREAM("SM(idle): New task received -> transition to StateNext...");
 	_agent->registerPersistantState(STATE_NEXT, new StateNext(_model)); //just one time, no??
 	_agent->transitionToPersistantState(STATE_NEXT);
 	_firstTime = true;//is it necessary as it is not a persistent state?

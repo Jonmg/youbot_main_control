@@ -28,11 +28,12 @@ StateReturnSA::~StateReturnSA()
 
 void StateReturnSA::laserCallback(const sensor_msgs::LaserScan::ConstPtr& laserScan)
 {
-
-	if (laserScan->ranges[256] > 0.4)
+	double distance = laserScan->ranges[256];
+		std::cout << "distance: " << distance << std::endl;
+		if(distance > 0.6)
 	{
 		_farEnough = true;
-		std::cout << "Über 40cm" << std::endl;
+		std::cout << "over 60cm" << std::endl;
 	}
 	else
 	{
@@ -43,7 +44,7 @@ void StateReturnSA::laserCallback(const sensor_msgs::LaserScan::ConstPtr& laserS
 void StateReturnSA::onEntry()
 {
 	_farEnough = false;
-	_vel.linear.x = -0.03;
+	_vel.linear.x = -0.2;
 }
 
 void StateReturnSA::onActive()
@@ -59,6 +60,7 @@ void StateReturnSA::onActive()
 	{
 		_vel.linear.x = 0.0;
 		_velPub.publish(_vel);
+		_model->deleteNextTask();
 		ROS_INFO_STREAM("SM(ReturnSA): Far enough. Go to State Next");
 		_agent->transitionToPersistantState(STATE_NEXT);
 	}
