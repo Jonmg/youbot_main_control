@@ -9,6 +9,7 @@
 #define STATEGRASP_H_
 
 #include "../statesCommon/StateBaseYoubot.h"
+#include "youbot_msgs/Task.h"
 
 class YoubotModel;
 
@@ -26,6 +27,7 @@ private:
 		ros::ServiceClient _graspObjectclient;
 
 		std::string _objectType;
+		youbot_msgs::Task _task;
 };
 
 #endif /* STATEGRASP_H_ */

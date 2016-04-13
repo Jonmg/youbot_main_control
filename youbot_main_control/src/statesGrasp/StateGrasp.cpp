@@ -26,13 +26,16 @@ StateGrasp::~StateGrasp()
 
 void StateGrasp::onEntry()
 {
-
+	_model->getNextTask(_task);
+	_objectType = _task.sequences.at(0).object.at(0).data();
+	ROS_INFO_STREAM("SM(ObjectRecognition): _task: " << _task);
 }
 
 void StateGrasp::onActive()
 {
 	ROS_INFO_THROTTLE(2, "SM(Grasp)");
 
+	sleep(3);
 	_agent->transitionToVolatileState(new StateReturnSA(_model));
 	return;
 

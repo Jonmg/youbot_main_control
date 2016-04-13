@@ -91,7 +91,7 @@ void StateDrive::onActive()
 
 void StateDrive::interpretatePosition ()
 {
-	std::string sPose = _task.sequences.at(0).source_location;
+	std::string sPose = _task.sequences.at(0).destination_location;
 	std::string sOrientation = _task.sequences.at(0).orientation;
 
 	if (sPose == "S1")
@@ -128,7 +128,7 @@ void StateDrive::interpretatePosition ()
 
 void StateDrive::readFromTXTfile()
 {
-	std::string sPose = _task.sequences.at(0).source_location;
+	std::string sPose = _task.sequences.at(0).destination_location;
 
 	std::string word;
 	std::vector<std::string> zeile;

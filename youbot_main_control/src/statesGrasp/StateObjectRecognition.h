@@ -9,6 +9,7 @@
 #define STATEOBJECTRECOGNITION_H_
 
 #include "../statesCommon/StateBaseYoubot.h"
+#include "youbot_msgs/Task.h"
 
 class YoubotModel;
 
@@ -27,6 +28,7 @@ private:
 	ros::ServiceClient _SearchObjectclient;
 
 	std::string _objectType;
+	youbot_msgs::Task _task;
 };
 
 #endif /* STATEOBJECTRECOGNITION_H_ */

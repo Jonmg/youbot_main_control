@@ -27,7 +27,12 @@ public:
 
 private:
 
+	bool nextTask();
+
 	youbot_msgs::Task _task;
+	int _subTaskActualNumber;
+	int _subTaskMaxlNumber;
+	bool _firstTime;
 };
 
 #endif /* STATENEXT_H_ */

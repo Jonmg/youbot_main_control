@@ -1,0 +1,52 @@
+
+rostopic pub /task youbot_msgs/Task "testtype: 'BNT' 
+sequences:
+- initial_location: ''
+  source_location: ''
+  destination_location: 'S1'
+  orientation: 'N'
+  waitingTime: ''
+  configuration: ''
+  final_location: ''
+  object: ['']
+initialsituation:
+- initial_location: ''
+  source_location: ''
+  destination_location: ''
+  orientation: ''
+  waitingTime: ''
+  configuration: ''
+  final_location: ''
+  object: ['']
+goalsituation:
+- initial_location: ''
+  source_location: ''
+  destination_location: ''
+  object: ['']" 
+
+rostopic pub /task youbot_msgs/Task "testtype: 'BMT' 
+sequences:
+- initial_location: ''
+  source_location: ''
+  destination_location: 'S1'
+  orientation: 'N'
+  waitingTime: ''
+  configuration: ''
+  final_location: ''
+  object: ['F20_20_B']
+initialsituation:
+- initial_location: ''
+  source_location: ''
+  destination_location: ''
+  orientation: ''
+  waitingTime: ''
+  configuration: ''
+  final_location: ''
+  object: ['']
+goalsituation:
+- initial_location: ''
+  source_location: ''
+  destination_location: ''
+  object: ['']" 
+
+
