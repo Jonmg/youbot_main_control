@@ -10,7 +10,7 @@
 
 #include "StateBaseYoubot.h"
 #include "geometry_msgs/PoseStamped.h"
-#include "youbot_msgs/Task.h"
+#include "youbot_msgs/SubTaskVector.h"
 
 class YoubotModel;
 
@@ -23,13 +23,11 @@ public:
 	void onActive();
 
 private:
-	void taskCallback(const youbot_msgs::Task::ConstPtr& task);
+	void taskCallback(const youbot_msgs::SubTaskVector::ConstPtr& task);
 
 	ros::Subscriber _taskSub;
 
-	bool _newGoal;
 	bool _firstTime;
-	geometry_msgs::PoseStamped _goal;
 };
 
 #endif /* STATEIDLE_H_ */

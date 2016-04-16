@@ -60,7 +60,6 @@ void StateReturnSA::onActive()
 	{
 		_vel.linear.x = 0.0;
 		_velPub.publish(_vel);
-		_model->deleteNextTask();
 		ROS_INFO_STREAM("SM(ReturnSA): Far enough. Go to State Next");
 		_agent->transitionToPersistantState(STATE_NEXT);
 	}

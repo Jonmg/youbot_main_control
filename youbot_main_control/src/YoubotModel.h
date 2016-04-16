@@ -14,6 +14,9 @@
 #include "obcore/statemachine/AgentModel.h"
 #include "youbot_msgs/Task.h"
 
+#include "youbot_msgs/SubTask.h"
+#include "youbot_msgs/SubTaskVector.h"
+
 class YoubotModel : public obvious::AgentModel
 {
 
@@ -78,6 +81,33 @@ public:
 	 */
 	void setSingleTask(youbot_msgs::Task task);
 
+	/**
+		 * set subTasks.
+		 * @param SubTaskVector
+		 * @return success
+		 */
+	void addSubTasks(const youbot_msgs::SubTaskVector SubTaskVector);
+
+	/**
+	 * Get subTasks.
+	 * @param SubTaskVector
+	 * @return success
+	 */
+	bool getSubTasks(youbot_msgs::SubTaskVector& SubTaskVector);
+
+
+	/**
+	 * Set the Actual Task
+	 */
+	void setActualSubTask(youbot_msgs::SubTask actualSubTask);
+
+	/**
+	 * Get the Actual Task
+	 */
+	void getActualSubTask(youbot_msgs::SubTask& actualSubTask);
+
+
+
 	ros::NodeHandle* const nodeHandle(void)const{return _nh;}
 
 	ros::NodeHandle* const paramNodeHandle(void)const{return _prvNh;}
@@ -97,6 +127,10 @@ private:
 	youbot_msgs::Task _task;
 
 	std::vector<youbot_msgs::Task> _taskVector;
+
+	youbot_msgs::SubTask _actualSubTask;
+
+	youbot_msgs::SubTaskVector _subTaskVector;
 
 };
 

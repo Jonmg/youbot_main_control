@@ -65,6 +65,7 @@ bool YoubotModel::getNextTask(youbot_msgs::Task& taskVector)
 	return true;
 }
 
+/*
 bool YoubotModel::deleteNextTask()
 {
 	if(!_taskVector.size())
@@ -84,4 +85,31 @@ void YoubotModel::getSingleTask(youbot_msgs::Task& task)
 void YoubotModel::setSingleTask(youbot_msgs::Task task)
 {
 	_task = task;
+}*/
+
+void YoubotModel::addSubTasks(const youbot_msgs::SubTaskVector subTaskVector)
+{
+	_subTaskVector = subTaskVector;
 }
+
+bool YoubotModel::getSubTasks(youbot_msgs::SubTaskVector& subTaskVector)
+{
+	if(!_subTaskVector.subtasks.size())
+	{
+		return false;
+	}
+	subTaskVector = _subTaskVector;
+	return true;
+}
+
+void YoubotModel::setActualSubTask(youbot_msgs::SubTask task)
+{
+	_actualSubTask = task;
+}
+
+void YoubotModel::getActualSubTask(youbot_msgs::SubTask& task)
+{
+	task = _actualSubTask;
+}
+
+

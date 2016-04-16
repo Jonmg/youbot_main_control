@@ -9,6 +9,7 @@
 #define STATEWAIT_H_
 
 #include "../statesCommon/StateBaseYoubot.h"
+#include "youbot_msgs/SubTask.h"
 
 class YoubotModel;
 
@@ -24,6 +25,8 @@ public:
 private:
 	ros::Time _initialTime;
 	ros::Time _finalTime;
+
+	youbot_msgs::SubTask _subTask;
 };
 
 #endif /* STATEWAIT_H_ */

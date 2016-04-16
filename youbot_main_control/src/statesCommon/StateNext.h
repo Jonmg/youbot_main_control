@@ -10,7 +10,8 @@
 
 #include "StateBaseYoubot.h"
 #include "geometry_msgs/PoseStamped.h"
-#include "youbot_msgs/Task.h"
+#include "youbot_msgs/SubTask.h"
+#include "youbot_msgs/SubTaskVector.h"
 
 class YoubotModel;
 
@@ -29,10 +30,11 @@ private:
 
 	bool nextTask();
 
-	youbot_msgs::Task _task;
+	youbot_msgs::SubTask _actualSubTask;
+
+	youbot_msgs::SubTaskVector _subTaskVector;
+
 	int _subTaskActualNumber;
-	int _subTaskMaxlNumber;
-	bool _firstTime;
 };
 
 #endif /* STATENEXT_H_ */

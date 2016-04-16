@@ -11,7 +11,7 @@
 #include "../statesCommon/StateBaseYoubot.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "actionlib_msgs/GoalStatusArray.h"
-#include "youbot_msgs/Task.h"
+#include "youbot_msgs/SubTask.h"
 #include "ats_msgs/path_ctrl_status.h"
 
 class YoubotModel;
@@ -28,8 +28,6 @@ private:
 	void statusNavStackCallback(const actionlib_msgs::GoalStatusArray& status);
 	void statusPathControlCallback(const ats_msgs::path_ctrl_status& status);
 	void interpretatePosition ();
-	void readFromTXTfile();
-	double stringToDouble(std::string s);
 
 	ros::Publisher _goalPub;
 	ros::Subscriber _statusSub;
@@ -39,8 +37,7 @@ private:
 
 	actionlib_msgs::GoalStatusArray _statusNavStack;
 	ats_msgs::path_ctrl_status _statusPathControl;
-	geometry_msgs::PoseStamped _goal; //it should come directly from
-	youbot_msgs::Task _task;
+	youbot_msgs::SubTask _subTask;
 	std::string _filepath;
 };
 

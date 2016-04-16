@@ -11,11 +11,10 @@
 
 StateIdle::StateIdle(YoubotModel* const model):
 StateBaseYoubot(model),
-_newGoal(false),
 _firstTime(true)
 {
 	std::string taskTopic;
-	_prvNh->param<std::string>("task_topic", taskTopic, "task");
+	_prvNh->param<std::string>("sub_task_topic", taskTopic, "subTask");
 
 	_taskSub = _nh->subscribe(taskTopic, 1, &StateIdle::taskCallback, this);
 }
@@ -25,14 +24,13 @@ StateIdle::~StateIdle()
 
 }
 
-void StateIdle::taskCallback(const youbot_msgs::Task::ConstPtr& task)
+void StateIdle::taskCallback(const youbot_msgs::SubTaskVector::ConstPtr& task)
 {
 	if (_firstTime)
 	{
 		_firstTime =false;
-		_model->addTask(*task);
-		ROS_INFO_STREAM("SM(idle): task: " << *task);
-
+		_model->addSubTasks(*task);
+		ROS_INFO_STREAM("SM(idle): subTasks: " << *task);
 	}
 }
 

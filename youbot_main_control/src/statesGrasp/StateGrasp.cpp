@@ -26,9 +26,7 @@ StateGrasp::~StateGrasp()
 
 void StateGrasp::onEntry()
 {
-	_model->getNextTask(_task);
-	_objectType = _task.sequences.at(0).object.at(0).data();
-	ROS_INFO_STREAM("SM(ObjectRecognition): _task: " << _task);
+	_model->getActualSubTask(_subTask);
 }
 
 void StateGrasp::onActive()
@@ -42,7 +40,7 @@ void StateGrasp::onActive()
 	youbot_msgs::grabObject	srvArm;
 
 	srvArm.request.start.data = true;
-	srvArm.request.object.data = _objectType;
+	srvArm.request.object.data = _subTask.objectType.data();
 	_graspObjectclient.call(srvArm);
 	if (srvArm.response.finished.data)
 	{

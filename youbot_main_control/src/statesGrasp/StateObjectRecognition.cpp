@@ -31,9 +31,7 @@ StateObjectRecognition::~StateObjectRecognition()
 
 void StateObjectRecognition::onEntry()
 {
-	_model->getNextTask(_task);
-	_objectType = _task.sequences.at(0).object.at(0).data();
-	ROS_INFO_STREAM("SM(ObjectRecognition): Object type: " << _objectType);
+	_model->getActualSubTask(_subTask);
 }
 
 void StateObjectRecognition::onActive()
@@ -53,7 +51,7 @@ void StateObjectRecognition::onActive()
 		std::cout << " searching for object..." << std::endl;
 		youbot_msgs::getObjectPosition srvVision;
 		srvVision.request.start.data = true;
-		srvVision.request.object.data = _objectType;
+		srvVision.request.object.data = _subTask.objectType.data();
 		_SearchObjectclient.call(srvVision);
 
 		if(srvVision.response.found.data)

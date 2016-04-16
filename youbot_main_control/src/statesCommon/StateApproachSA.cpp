@@ -8,6 +8,7 @@
 #include "StateApproachSA.h"
 #include "../statesGrasp/StateObjectRecognition.h"
 #include "../YoubotModel.h"
+#include "youbot_msgs/SubTask.h"
 
 StateApproachSA::StateApproachSA(YoubotModel* const model):
 StateBaseYoubot(model)
@@ -52,14 +53,30 @@ void StateApproachSA::onActive()
 
 	ros::spinOnce();
 	if (!_closeEnough)
-		{
-			_velPub.publish(_vel);
-		}
+	{
+		_velPub.publish(_vel);
+	}
 	else
 	{
 		_vel.linear.x = 0.0;
 		_velPub.publish(_vel);
-		ROS_INFO_STREAM("SM(ApproachSA): Close enough. Go to State ObjectRecognition");
-		_agent->transitionToVolatileState(new StateObjectRecognition(_model));
+		youbot_msgs::SubTask actualSubTask;
+		_model->getActualSubTask(actualSubTask);
+		if (actualSubTask.subTasktType == "G")
+		{
+			ROS_INFO_STREAM("SM(ApproachSA): Close enough. Go to State ObjectRecognition");
+			_agent->transitionToVolatileState(new StateObjectRecognition(_model));
+		}
+		else if (actualSubTask.subTasktType == "D")
+		{
+			ROS_INFO_STREAM("SM(ApproachSA): Close enough. Go to State Deliver Object");
+			//_agent->transitionToVolatileState(new StateObjectRecognition(_model));
+			_agent->transitionToPersistantState(STATE_NEXT);
+		}
+		else
+		{
+			ROS_INFO_STREAM("SM(ReturnSA): Not a valid TaskType. Go to State Next");
+			_agent->transitionToPersistantState(STATE_NEXT);
+		}
 	}
 }
