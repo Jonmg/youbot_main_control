@@ -2,9 +2,9 @@
 	
 	<arg name="output"         	default="screen" />     <!-- log | screen -->
 	<arg name="MapFrame"    	default="map" /> 		<!-- map_static | map-->	
-	<arg name="RoobotFrame"    	default="robot0" /> 	<!-- youbot | robot0-->	
-	<arg name="VelTopic"    	default="/robot0/cmd_vel" /> 	<!-- cmd_vel | /robot0/cmd_vel-->	
-	<arg name="LaserTopic"    	default="/robot0/laser_0" /> 	<!-- laser | /robot0/laser_0-->	
+	<arg name="RoobotFrame"    	default="base_footprint" />     <!--base_footprint | robot0-->	
+	<arg name="VelTopic"    	default="/cmd_vel" /> 	<!-- cmd_vel | /robot0/cmd_vel-->	
+	<arg name="LaserTopic"    	default="/scan" /> 	<!-- /scan | /robot0/laser_0-->	
 	
 	<node pkg="youbot_main_control" type="youbot_main_control_node" name="youbot_control" output="$(arg output)">   
 		
@@ -21,16 +21,16 @@
       	<param name = "vel_topic"      			type = "string" value = "$(arg VelTopic)" />
       	<param name = "laser_topic"     		type = "string" value = "$(arg LaserTopic)" />
       	
-      	<param name = "move_base_status_topic"  type = "string" value = "move_base/status" />
+	<param name = "move_base_status_topic"  type = "string" value = "move_base/status" />
       	<param name = "move_base_goal_topic"    type = "string" value = "move_base_simple/goal" />
-      	
       	<param name = "positions_path"   		type = "string" value = "$(find youbot_main_control)/atwork2015_places.txt" />
       	
       	<param name = "set_pose_topic"     		type = "string" value = "setPose" />
       	<param name = "find_objet_topic"     	type = "string" value = "getObject" />
       	<param name = "grasp_object_topic"      type = "string" value = "grabObject" /> 	      	
    </node>
-   
-   <include file="$(find youbot_main_control)/launch/includes/move_base.launch.xml"/>
+
+   <!--Not in the youbot. It will be started together with the Navigation Stack
+    <include file="$(find youbot_main_control)/launch/includes/move_base.launch.xml"/> -->
 
 </launch>
