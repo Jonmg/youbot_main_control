@@ -8,7 +8,8 @@ S6 PositionX 8.50 PositionY 6.00 Orientation -1.57 Orientation S end
 S7 PositionX 9.75 PositionY 5.50 Orientation 0 Orientation E end
 S8 PositionX 8.00 PositionY 6.50 Orientation 1.57 Orientation N end
 S9 positionX 8.50 PositionY 6.00 Orientation 3.14 Orientation W end
-D1 PositionX 6.25 PositionY 6.50 Orientation 1.57 Orientation N end
+D1 PositionX 3.00 PositionY 2.00 Orientation 1.57 Orientation N end
+T1 PositionX 8.50 PositionY 1.00 Orientation 1.57 Orientation N end
 
 #Still to be done
 #N -> PositionZ 0

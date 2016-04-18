@@ -26,6 +26,7 @@ private:
 	void taskCallback(const youbot_msgs::SubTaskVector::ConstPtr& task);
 
 	ros::Subscriber _taskSub;
+	ros::ServiceClient _subTaskVectorClient;
 
 	bool _firstTime;
 };

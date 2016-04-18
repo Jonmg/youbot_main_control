@@ -15,7 +15,7 @@ StateBaseYoubot(model)
 	std::string deliverObjectTopic;
 	_prvNh->param<std::string>("deliver_object_topic", deliverObjectTopic, "deliverObject");
 
-		//_deliverObjectclient = _nh->serviceClient<youbot_msgs::grabObject>(deliverObjectTopic);
+	//_deliverObjectclient = _nh->serviceClient<youbot_msgs::grabObject>(deliverObjectTopic);
 }
 
 StateDeliver::~StateDeliver()

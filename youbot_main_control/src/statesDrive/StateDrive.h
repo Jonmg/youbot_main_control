@@ -12,7 +12,6 @@
 #include "geometry_msgs/PoseStamped.h"
 #include "actionlib_msgs/GoalStatusArray.h"
 #include "youbot_msgs/SubTask.h"
-#include "ats_msgs/path_ctrl_status.h"
 
 class YoubotModel;
 
@@ -26,17 +25,11 @@ public:
 	virtual void onActive();
 private:
 	void statusNavStackCallback(const actionlib_msgs::GoalStatusArray& status);
-	void statusPathControlCallback(const ats_msgs::path_ctrl_status& status);
-	void interpretatePosition ();
 
 	ros::Publisher _goalPub;
 	ros::Subscriber _statusSub;
-	ros::ServiceClient _serviceClientCreatePath;
-	ros::ServiceClient _sendPathClient;
-	ros::Subscriber _subStatusPathCtrl;
 
 	actionlib_msgs::GoalStatusArray _statusNavStack;
-	ats_msgs::path_ctrl_status _statusPathControl;
 	youbot_msgs::SubTask _subTask;
 	std::string _filepath;
 };

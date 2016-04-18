@@ -11,8 +11,6 @@
 #include "../statesCommon/StateIdle.h"
 #include "../YoubotModel.h"
 #include "tf/tf.h"
-#include "ats_msgs/CreatePath.h"
-#include "ats_msgs/SendPath.h"
 #include "geometry_msgs/Point.h"
 #include <string>
 #include <iostream>
@@ -44,11 +42,6 @@ void StateDrive::statusNavStackCallback(const actionlib_msgs::GoalStatusArray& s
 	_statusNavStack = status;
 }
 
-void StateDrive::statusPathControlCallback(const ats_msgs::path_ctrl_status& status)
-{
-	_statusPathControl = status;
-}
-
 void StateDrive::onEntry()
 {
 	_model->getActualSubTask(_subTask);
@@ -61,7 +54,7 @@ void StateDrive::onEntry()
 	pose.pose.orientation.w = pose_quat.w();
 	pose.pose.orientation.z = pose_quat.z();
 
-	ROS_INFO_STREAM("SM(drive): Goal: " << pose);
+	//ROS_INFO_STREAM("SM(drive): Goal: " << pose);
 
 	/*NavigationStack*/
 	ros::Rate rate(100);
@@ -71,15 +64,18 @@ void StateDrive::onEntry()
 		rate.sleep();
 	}
 	_goalPub.publish(pose);
+	sleep(1);
 }
 
 void StateDrive::onActive()
 {
 	ROS_INFO_THROTTLE(2, "SM(drive)");
+	ros::spinOnce();
 	if(_statusNavStack.status_list.size() != 0)
 	{
-		if((_statusNavStack.status_list.at(0).status == 3)) //Succeed
+		if((_statusNavStack.status_list.back().status == 3)) //Succeed
 		{
+
 			_statusNavStack.status_list.clear();
 			ROS_INFO_STREAM("SM(drive): Goal reached. Go to StateNext");
 			_agent->transitionToPersistantState(STATE_NEXT);

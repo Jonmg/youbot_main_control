@@ -12,8 +12,6 @@
 #include "nav_msgs/Path.h"
 #include <vector>
 #include "obcore/statemachine/AgentModel.h"
-#include "youbot_msgs/Task.h"
-
 #include "youbot_msgs/SubTask.h"
 #include "youbot_msgs/SubTaskVector.h"
 
@@ -50,36 +48,6 @@ public:
 	 * @param pos position (x, y, z)
 	 */
 	bool getCurrentPose(geometry_msgs::PoseStamped* const pose, const double age);
-
-	/**
-	 * Add TaskVecdtor
-	 * @param target target
-	 */
-	void addTask(const youbot_msgs::Task taskVector);
-
-	/**
-	 * Get next taskVector. If no target is assigned, NULL is returned.
-	 * @param taskVector next taskVector
-	 * @return success
-	 */
-	bool getNextTask(youbot_msgs::Task& taskVector);
-
-	/**
-	 * Delete next taskVector. If no target is assigned, NULL is returned.
-	 * @param taskVector next taskVector
-	 * @return success
-	 */
-	bool deleteNextTask();
-
-	/**
-	 * Get the Single task
-	 */
-	void getSingleTask(youbot_msgs::Task& task);
-
-	/**
-	 * Set the Single task
-	 */
-	void setSingleTask(youbot_msgs::Task task);
 
 	/**
 		 * set subTasks.
@@ -121,12 +89,6 @@ private:
 	ros::NodeHandle* const _prvNh;
 
 	ros::Time* _lastPoseUpdate;
-
-	std::string _actualTask;
-
-	youbot_msgs::Task _task;
-
-	std::vector<youbot_msgs::Task> _taskVector;
 
 	youbot_msgs::SubTask _actualSubTask;
 

@@ -7,6 +7,7 @@
 
 #include "StateApproachSA.h"
 #include "../statesGrasp/StateObjectRecognition.h"
+#include "../statesGrasp/StateDeliver.h"
 #include "../YoubotModel.h"
 #include "youbot_msgs/SubTask.h"
 
@@ -70,8 +71,7 @@ void StateApproachSA::onActive()
 		else if (actualSubTask.subTasktType == "D")
 		{
 			ROS_INFO_STREAM("SM(ApproachSA): Close enough. Go to State Deliver Object");
-			//_agent->transitionToVolatileState(new StateObjectRecognition(_model));
-			_agent->transitionToPersistantState(STATE_NEXT);
+			_agent->transitionToVolatileState(new StateDeliver(_model));
 		}
 		else
 		{

@@ -42,13 +42,15 @@ void StateNext::onActive(void)
 	/*trial:*/
 	if (!nextTask())
 	{
+		_subTaskVector.subtasks.clear();
+		_subTaskActualNumber=0;
+
 		ROS_INFO_STREAM("SM(next): No more tasks to be done. Go to State Idle");
 		_agent->transitionToVolatileState(new StateIdle(_model));
 		return;
 	}
 
-
-	ROS_INFO_STREAM("SM(next): actualTask " << _subTaskActualNumber <<  "  :" << _actualSubTask);
+	ROS_INFO_STREAM("SM(next): actual subTask, " << _subTaskActualNumber <<  "  : " << _actualSubTask);
 
 	if (_actualSubTask.subTasktType == "M")
 	{
@@ -71,29 +73,11 @@ void StateNext::onActive(void)
 		_agent->transitionToVolatileState(new StateApproachSA(_model));
 	}
 
-
-	/*if(!_model->getNextTask(_task))
-	{
-		ROS_INFO_DELAYED_THROTTLE(1, "SM(next): No more tasks to be done. Go to State Idle");
-		_agent->transitionToVolatileState(new StateIdle(_model));
-		return;
-	}
-
-	if (_task.testtype == "BNT")
-	{
-		ROS_INFO_STREAM("SM(next): task type = 'D'. Go to State Drive");
-		_agent->transitionToVolatileState(new StateDrive(_model));
-	}
-	else if (_task.testtype == "BMT")
-	{
-		ROS_INFO_STREAM("SM(next): Received pose -> transition to state idle..." << std::endl);
-		_agent->transitionToVolatileState(new StateApproachSA(_model));
-	}*/
 }
 
 bool StateNext::nextTask()
 {
-	if (_subTaskActualNumber == _subTaskVector.subtasks.size())
+	if (_subTaskActualNumber >= _subTaskVector.subtasks.size())
 		return false;
 	else
 	{

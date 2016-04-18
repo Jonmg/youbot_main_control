@@ -155,6 +155,7 @@ add_executable(youbot_main_control_node  src/youbot_control_node.cpp
                                          
                                          src/statesGrasp/StateObjectRecognition.cpp
                                          src/statesGrasp/StateGrasp.cpp
+                                         src/statesGrasp/StateDeliver.cpp
                                          
                                          )
 
