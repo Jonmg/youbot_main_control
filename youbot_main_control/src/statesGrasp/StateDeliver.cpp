@@ -30,7 +30,7 @@ void StateDeliver::onEntry()
 
 void StateDeliver::onActive()
 {
-	ROS_INFO_THROTTLE(2, "SM(Grasp)");
+	ROS_INFO_THROTTLE(2, "SM(Deliver)");
 
 	sleep(3);
 	_agent->transitionToVolatileState(new StateReturnSA(_model));

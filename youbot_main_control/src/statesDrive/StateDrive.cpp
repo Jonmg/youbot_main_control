@@ -21,6 +21,7 @@ StateDrive::StateDrive(YoubotModel* const model):
 StateBaseYoubot(model),
 _filepath(" ")
 {
+
 	/*Navigation Stack:*/
 	std::string statusTopic;
 	std::string goalTopic;
@@ -54,8 +55,6 @@ void StateDrive::onEntry()
 	pose.pose.orientation.w = pose_quat.w();
 	pose.pose.orientation.z = pose_quat.z();
 
-	//ROS_INFO_STREAM("SM(drive): Goal: " << pose);
-
 	/*NavigationStack*/
 	ros::Rate rate(100);
 	pose.header.frame_id = "map";
@@ -64,7 +63,7 @@ void StateDrive::onEntry()
 		rate.sleep();
 	}
 	_goalPub.publish(pose);
-	sleep(1);
+	rate.sleep();
 }
 
 void StateDrive::onActive()
