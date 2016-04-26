@@ -31,7 +31,7 @@ void StateApproachSA::laserCallback(const sensor_msgs::LaserScan::ConstPtr& lase
 {
 	double distance = laserScan->ranges[256];
 	std::cout << "distance: " << distance << std::endl;
-	if(distance<0.2)
+	if(distance<0.4)
 	{
 		_closeEnough = true;
 		std::cout << "Under 20cm" << std::endl;
@@ -45,7 +45,7 @@ void StateApproachSA::laserCallback(const sensor_msgs::LaserScan::ConstPtr& lase
 void StateApproachSA::onEntry()
 {
 	_closeEnough = false;
-	_vel.linear.x = 0.1;
+	_vel.linear.x = 0.08;
 }
 
 void StateApproachSA::onActive()

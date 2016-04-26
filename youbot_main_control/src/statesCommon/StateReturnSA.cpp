@@ -44,7 +44,7 @@ void StateReturnSA::laserCallback(const sensor_msgs::LaserScan::ConstPtr& laserS
 void StateReturnSA::onEntry()
 {
 	_farEnough = false;
-	_vel.linear.x = -0.2;
+	_vel.linear.x = -0.1;
 }
 
 void StateReturnSA::onActive()

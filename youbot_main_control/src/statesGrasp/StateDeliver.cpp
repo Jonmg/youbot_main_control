@@ -8,14 +8,15 @@
 #include "StateDeliver.h"
 #include "../statesCommon/StateReturnSA.h"
 #include "../YoubotModel.h"
+#include "youbot_msgs/placeObject.h"
 
 StateDeliver::StateDeliver(YoubotModel* const model) :
 StateBaseYoubot(model)
 {
 	std::string deliverObjectTopic;
-	_prvNh->param<std::string>("deliver_object_topic", deliverObjectTopic, "deliverObject");
+	_prvNh->param<std::string>("deliver_object_topic", deliverObjectTopic, "placeObject");
 
-	//_deliverObjectclient = _nh->serviceClient<youbot_msgs::grabObject>(deliverObjectTopic);
+	_deliverObjectclient = _nh->serviceClient<youbot_msgs::placeObject>(deliverObjectTopic);
 }
 
 StateDeliver::~StateDeliver()
@@ -36,5 +37,8 @@ void StateDeliver::onActive()
 	_agent->transitionToVolatileState(new StateReturnSA(_model));
 	return;
 
-
+    youbot_msgs::placeObject srvVision;
+		srvVision.request.start.data = true;
+		srvVision.request.object.data = "F20_20_B";//_subTask.objectType.data();
+		_deliverObjectclient.call(srvVision);
 }
